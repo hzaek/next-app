@@ -5,7 +5,7 @@
 
 import Loading from "./loading";
 
-import Setttings from "./Settings";
+
 import WeatherFirstSection from "./WeatherFirstSection";
 import WeatherSecondSection from "./WeatherSecondSection";
 export default async function WeatherState({}) {
