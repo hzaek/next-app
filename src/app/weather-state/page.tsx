@@ -1,39 +1,34 @@
-// "use client";
+"use client";
 
-// import { useState } from "react";
-// import useFetch from "../../hooks/useFetch";
-
+import { useState } from "react";
+import useFetch from "../../hooks/useFetch";
 import Loading from "./loading";
 
-
+import Setttings from "./Settings";
 import WeatherFirstSection from "./WeatherFirstSection";
 import WeatherSecondSection from "./WeatherSecondSection";
-export default async function WeatherState({}) {
-  // const [city, setCity] = useState("Muscat");
-  // const obj = useFetch<WeatherData>("/api/weather?city=" + city);
-  // function handleCityChange(theCity: string) {
-  //   setCity(theCity);
-  // }
-  const api = process.env.WEATHER_API_KEY;
-  const url = `https://api.weatherapi.com/v1/current.json?key=${api}&q=Muscat&aqi=yes`;
-  const dataJson = await fetch(`${url}`,{cache: 'no-store'})
-  const obj = await dataJson.json()
-  
+export default function WeatherState({}) {
+  const [city, setCity] = useState("Muscat");
+  const obj = useFetch<WeatherData>("/api/weather?city=" + city);
+  function handleCityChange(theCity: string) {
+    setCity(theCity);
+  }
+
   // If the City name wrong
   if (obj.data?.error) {
-    // return <FaildFetching string={'Please Enter a Correct City Name'} />;
+    return <FaildFetching string={'Please Enter a Correct City Name'} />;
   }
   // If the Fetch is failed
   if (obj.isError) {
     console.log(obj.data);
-    // return <FaildFetching string={'Failed to Fetch Data'} />;
+    return <FaildFetching string={'Failed to Fetch Data'} />;
   }
   if (obj.isLoading) {
     return <Loading />;
   }
   return (
     <>
-      {/* <Setttings handleCityChange={handleCityChange} /> */}
+      <Setttings handleCityChange={handleCityChange} />
       <div className="flex flex-col justify-between items-center h-svh text-white ">
         {/* The Upper Section in the page */}
         <WeatherFirstSection weatherObject={obj} />
@@ -46,13 +41,13 @@ export default async function WeatherState({}) {
 }
 
 
-// function FaildFetching({string}:{string:string}){
-//   return (
-//     <div className="h-svh w-full flex justify-center items-center flex-col">
-//       <h1 className="text-white font-semibold text-2xl mb-4">{string}</h1>
-//       <button className="bg-red-600 p-3 rounded-xl text-white" onClick={()=>{
-//         window.location.reload();
-//       }}>Try Again</button>
-//     </div>
-//   )
-// }
+function FaildFetching({string}:{string:string}){
+  return (
+    <div className="h-svh w-full flex justify-center items-center flex-col">
+      <h1 className="text-white font-semibold text-2xl mb-4">{string}</h1>
+      <button className="bg-red-600 p-3 rounded-xl text-white" onClick={()=>{
+        window.location.reload();
+      }}>Try Again</button>
+    </div>
+  )
+}
