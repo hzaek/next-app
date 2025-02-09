@@ -41,12 +41,12 @@ function WeatherDataElement({
     <div className="text-xl *:flex *:justify-between *:items-center">
       <div className="mt-4 mb-4 last:mb-0 ">
         <span>condition : </span>
-        <Image
+        {/* <Image
           src={"https:" + weatherObject.data?.current.condition.icon}
           width={50}
           height={50}
           alt=""
-        />
+        /> */}
         <span>{weatherObject.data?.current.condition.text}</span>
       </div>
       <div className="mt-4 mb-4 last:mb-0 ">
