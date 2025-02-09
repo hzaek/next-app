@@ -2,20 +2,86 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+.main-bg {
+  background-color: #1b2845;
+  background-image: linear-gradient(315deg, #1b2845 0%, #274060 74%);
+}
+.h-sm{
+  min-height: calc(100vh - env(safe-area-inset-bottom));
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@property --angle{
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.w-100per-10px{
+  width: calc(100% - 10px);
+}
+.spin-border{
+  position: relative;
+  
+  margin:  0 auto;
+}
+.spin-border::before,.spin-border::after{
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: conic-gradient(from var(--angle),#80FF72 , #7EE8FA 70%);
+  animation: spin-border 5s linear infinite;
+  -webkit-animation: spin-border 5s linear infinite;
+  bottom: 50%;
+  right: 50%;
+  transform: translate(50%, 50%);
+  z-index: -2;
+  box-sizing: content-box;
+  padding: 5px;
+  border-radius: 50px;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  -ms-border-radius: 50px;
+  -o-border-radius: 50px;
+
+}
+.spin-border::after{
+  filter: blur(1rem);
+  -webkit-filter: blur(1rem);
+  opacity: 0.5;
+}
+
+@keyframes spin-border {
+  0%{
+    --angle: 0deg;
+  }
+  100% {
+    --angle: 360deg;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+ body {
+  touch-action: none; /* Prevent pinch-to-zoom on some browsers */
+}
+
+.h-full-55{
+  height: calc(100% - 905px);
+}
+
+.x::before,.x::after{
+  border-radius: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+}
+
+.scroll-custom::-webkit-scrollbar{
+display: none;
+}
+.scroll-custom{
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
